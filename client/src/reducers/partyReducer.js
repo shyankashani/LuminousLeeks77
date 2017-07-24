@@ -10,6 +10,9 @@ const partyReducer = (state = initial, action) => {
     case 'UPDATE_PARTY_INFO':
       return action.payload;
 
+    case 'GET_PARTY_INFO_CUSTOMER_ON_MOUNT':
+      return action.payload;
+
     case 'ENQUEUE':
       return action.payload;
 

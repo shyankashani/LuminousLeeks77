@@ -1,16 +1,16 @@
 import axios from 'axios';
-import { ENQUEUE, DEQUEUE, GET_PARTY_INFO, UPDATE_PARTY_SIZE, UPDATE_FIRST_NAME, UPDATE_PHONE_NUMBER } from './actionTypes.js';
+import { ENQUEUE, DEQUEUE, GET_PARTY_INFO_CUSTOMER_ON_MOUNT, UPDATE_PARTY_SIZE, UPDATE_FIRST_NAME, UPDATE_PHONE_NUMBER } from './actionTypes.js';
 
-const getPartyInfo = store => {
-  // return dispatch => {
-  //   axios.get('/api/partyInfo', { params: { queueId: 1, userId: store.user.id } })
-  //   .then(result => {
-  //     dispatch({
-  //       type: GET_PARTY_INFO,
-  //       payload: result.data
-  //     });
-  //   });
-  // };
+const getPartyInfoCustomerOnMount = user_id => {
+  return dispatch => {
+    axios.get(`/api/partyInfo/getPartyInfoCustomerOnMount/${user_id}`)
+    .then(result => {
+      dispatch({
+        type: GET_PARTY_INFO_CUSTOMER_ON_MOUNT,
+        payload: result.data
+      });
+    });
+  };
 };
 
 const dequeue = (queue_id, party_id) => {
@@ -62,4 +62,4 @@ const updatePhoneNumber = phoneNumber => {
   }
 }
 
-export { enqueue, dequeue, getPartyInfo, updatePartySize, updateFirstName, updatePhoneNumber };
+export { enqueue, dequeue, getPartyInfoCustomerOnMount, updatePartySize, updateFirstName, updatePhoneNumber };

@@ -16,34 +16,70 @@ module.exports.getOne = (req, res) => {
     });
 };
 
+module.exports.getPartyInfoCustomerOnMount = (req, res) => {
+  console.log('hello');
+  // return models.Party.where({profile_id: req.params.user_id})
+  //   .query((qb) => {
+  //     qb.orderBy('wait_time', 'ASC');
+  //   })
+  //   .fetchAll({
+  //     withRelated: ['queue', 'profile'],
+  //     columns: ['id', 'queue_id', 'wait_time', 'profile_id', 'party_size']
+  //   })
+  //   .then(result => {
+  //     var length = result.length;
+  //     var targetCustomer = result.map((customer, index) => {
+  //       customer.set({parties_ahead: index});
+  //       customer.set({parties_behind: length - (index + 1)});
+  //       return customer;
+  //     });
+  //     targetCustomer = targetCustomer.filter(party => {
+  //       return party.get('profile_id') === 11;
+  //     });
+  //     console.log(targetCustomer);
+  //     res.send(targetCustomer);
+  //   })
+  //   .error(err => {
+  //     res.send(err);
+  //   });
+};
+
 //gets all parties for the host;
 //passing in queue Id and partyId
 module.exports.getPartyInfoCustomer = (req, res) => {
-  var queue = [];
-  return models.Party.where({queue_id: req.params.queueid})
-    .query((qb) => {
-      qb.orderBy('wait_time', 'ASC');
-    })
-    .fetchAll({
-      withRelated: ['queue', 'profile'],
-      columns: ['id', 'queue_id', 'wait_time', 'profile_id', 'party_size']
-    })
-    .then(result => {
-      var length = result.length;
-      var targetCustomer = result.map((customer, index) => {
-        customer.set({parties_ahead: index});
-        customer.set({parties_behind: length - (index + 1)});
-        return customer;
+  console.log(req.params.userid);
+  return models.Party.where({profile_id: req.params.userid})
+    .fetch({require: false})
+  .then(result => {
+    res.send(result);
+  })
+  .catch(result => {
+    console.log('catch');
+      return models.Party.where({queue_id: req.params.queueid})
+      .query((qb) => {
+        qb.orderBy('wait_time', 'ASC');
+      })
+      .fetchAll({
+        withRelated: ['queue', 'profile'],
+        columns: ['id', 'queue_id', 'wait_time', 'profile_id', 'party_size']
+      })
+      .then(result => {
+        var length = result.length;
+        var targetCustomer = result.map((customer, index) => {
+          customer.set({parties_ahead: index});
+          customer.set({parties_behind: length - (index + 1)});
+          return customer;
+        });
+        targetCustomer = targetCustomer.filter(party => {
+          return party.get('id') === Number(res.party_id) || party.get('profile_id') === req.params.userid;
+        });
+        console.log(targetCustomer);
+        res.send(targetCustomer);
+      })
+      .error(err => {
+        res.send(err);
       });
-      targetCustomer = targetCustomer.filter(party => {
-        return party.get('id') === Number(res.party_id);
-      });
-      console.log(targetCustomer);
-      res.send(targetCustomer);
-    })
-    .error(err => {
-      res.send(err);
-    });
+  })
 };
 
 //remove not operator when launching
@@ -137,8 +173,8 @@ module.exports.dequeue = (req, res, next) => {
           .save({queue_size: count}, {patch: true});
       })
       .then(result => {
-        // return redirect('/:queueid/:userid');  
-        return next(); 
+        // return redirect('/:queueid/:userid');
+        return next();
       })
       .error(err => {
         res.status(305).send(err);

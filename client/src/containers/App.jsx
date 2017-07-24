@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { enqueue, dequeue, getPartyInfo, updatePartySize, updateFirstName, updatePhoneNumber } from '../actions/partyActions.js';
+import { enqueue, dequeue, getPartyInfoCustomerOnMount, updatePartySize, updateFirstName, updatePhoneNumber } from '../actions/partyActions.js';
 
 import { setUserInfo, sendUserId } from '../actions/userActions.js';
 import { getQueueInfoHost, toggleQueue, getQueueInfoCustomer } from '../actions/queueActions.js';
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => {
       getQueueInfoCustomer: queue_id => { dispatch(getQueueInfoCustomer(queue_id)); },
       getQueueInfoHost: queue_id => { dispatch(getQueueInfoHost(queue_id)); },
 
-      getPartyInfo: () => { dispatch(getPartyInfo()); },
+      getPartyInfoCustomerOnMount: user_id => { dispatch(getPartyInfoCustomerOnMount(user_id)); },
       enqueue: (user_id, queue_id, party_size, first_name, phone_number) => { dispatch(enqueue(user_id, queue_id, party_size, first_name, phone_number)); },
       updatePartySize: partySize => { dispatch(updatePartySize(partySize)); },
       updateFirstName: firstName => { dispatch(updateFirstName(firstName)); },

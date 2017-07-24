@@ -24,6 +24,7 @@ class Customer extends React.Component {
 
   componentDidMount() {
     this.props.redux.dispatch.getQueueInfoCustomer(1);
+    this.props.redux.dispatch.getPartyInfoCustomerOnMount(this.props.redux.store.user.profile_id);
   };
 };
 
