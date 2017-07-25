@@ -59,6 +59,9 @@ class App extends React.Component {
   componentDidMount() {
     this.props.dispatch.setUserInfo();
     this.props.dispatch.testSocketConnect();
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log(position.coords.latitude, position.coords.longitude);
+    });
   }
 }
 
