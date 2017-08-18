@@ -13,11 +13,10 @@ Customers can also utilize this application to enqueue themselves to available w
 
 ## Roadmap
 
-View the project roadmap:
+- System Architecture [Here](https://drive.google.com/open?id=0B2MVZ2bkuc1oMDljVm5VdXlQTzg)
+- Host Wireframe[Host](https://drive.google.com/open?id=0B2MVZ2bkuc1ocFVSajlpV01WSDg)
+- Customer Wireframe [Customer](https://drive.google.com/open?id=0B2MVZ2bkuc1oQnRkbFFuS3FHTk0)
 
-System Architecture [Here](https://drive.google.com/open?id=0B2MVZ2bkuc1oMDljVm5VdXlQTzg)
-Host Wireframe[Host](https://drive.google.com/open?id=0B2MVZ2bkuc1ocFVSajlpV01WSDg)
-Customer Wireframe [Customer](https://drive.google.com/open?id=0B2MVZ2bkuc1oQnRkbFFuS3FHTk0)
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
